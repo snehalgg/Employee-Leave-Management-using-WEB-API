@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <script src="script.js" defer></script>
+    <style>
+        /* Add your CSS styles here */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#leaveRequests {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.leaveRequestCard {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.leaveRequestCard p {
+    margin: 0;
+}
+
+.leaveRequestCard button {
+    margin-left: 10px;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Welcome Manager</h1>
+
+    <button onclick="createManagerLeave()">Create Leave</button>
+
+
+    <button onclick="loadPendingLeaveRequests()">Load Pending Leave Requests</button>
+    <div id="leaveRequests"></div>
+
+    <script>
+         // Function to fetch and display leave requests
+      // Function to fetch and display leave requests
+
+      async function loadPendingLeaveRequests() {
+    try {
+        const response = await makeApiRequest('https://localhost:7116/api/LeaveRequests', 'GET');
+
+        if (response) {
+            const leaveRequestsContainer = document.getElementById('leaveRequests');
+            leaveRequestsContainer.innerHTML = '';
+
+            response.forEach(leaveRequest => {
+                const leaveRequestElement = document.createElement('div');
+                leaveRequestElement.id = `leaveRequest_${leaveRequest.id}`; // Add a unique ID
+                leaveRequestElement.innerHTML = `
+                    <p>Employee ID: ${leaveRequest.employeeId}</p>
+                    <p>Start Date: ${leaveRequest.startDate}</p>
+                    <p>End Date: ${leaveRequest.endDate}</p>
+                    <p>Leave Type: ${leaveRequest.leaveType}</p>
+                    <button onclick="approveLeave(${leaveRequest.id})">Approve</button>
+                    <button onclick="denyLeave(${leaveRequest.id})">Deny</button>
+                    <hr>
+                `;
+
+                leaveRequestsContainer.appendChild(leaveRequestElement);
+            });
+        } else {
+            alert("No pending leave requests found.");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while fetching leave requests.');
+    }
+}
+
+
+
+
+
+async function createManagerLeave() {
+    try {
+        // Make an API request to create a leave for the manager
+        const response = await makeApiRequest('https://localhost:7116/api/LeaveRequests', 'POST', {
+            EmployeeId: 3, // Assuming 3 is the manager's EmployeeId
+            StartDate: '2023-10-30',
+            EndDate: '2023-10-31',
+            LeaveType: 'casual',
+            Approved: false
+        });
+
+        if (response) {
+            alert('Leave requested successfully!');
+            loadPendingLeaveRequests(); // Reload pending leave requests after creation
+        } else {
+            alert('Failed to request leave.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating leave request.');
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome Employee</h1>
+    <p>Employee Name: <span id="employeeName"></span></p>
+    <p>Seek Leaves: <span id="seekLeaves"></span></p>
+    <p>Casual Leaves: <span id="casualLeaves"></span></p>
+    <p>Pending Leaves: <span id="pendingLeaves"></span></p>
+    <p>Past Leaves: <span id="pastLeaves"></span></p>
+    <button onclick="createLeave()">Create Leave</button>
+
+    <script src="script.js"></script>
+    <script>
+        updateEmployeeDetailsUI();
+    </script>
+    
+</body>
+
+</html>

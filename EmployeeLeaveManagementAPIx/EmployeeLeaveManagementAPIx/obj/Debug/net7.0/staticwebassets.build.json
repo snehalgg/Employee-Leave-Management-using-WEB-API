@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "CHyP1qTVcD1vJZtMEr7jF/lqSqDjOE2/zI7xrKfW2gg=",
+  "Source": "EmployeeLeaveManagementAPI",
+  "BasePath": "_content/EmployeeLeaveManagementAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
